@@ -1,6 +1,6 @@
 # Natours
 Welcome Guys! This repo consists of my code for Dev Connectors Project, which I made as a part of my course, MERN Stack Front to Back: Full Stack React, Redux & Node.js. The project consists of 2 different parts:
-- A Server-Side API, based on technologies, such as Node, Express & MongoDB. It is published on <a target='_blank' href='https://documenter.getpostman.com/view/10118730/TVYDdeFM'>Postman</a>.
+- A Server-Side API, based on technologies, such as Node, Express & MongoDB. It is published on <a target='_blank' href='https://documenter.getpostman.com/view/10118730/TVep8nHM'>Postman</a>.
 - A Client-Side rendered website, based on React, which consumes the API. It is hosted on <a target='_blank' href='https://devconnect08.herokuapp.com/'>Heroku</a>. 
 
 # Features  
