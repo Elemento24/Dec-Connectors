@@ -1,0 +1,674 @@
+{
+	"info": {
+		"_postman_id": "4004d484-df51-405e-9bec-82036aa8e2a1",
+		"name": "Connector",
+		"description": "Welcome to the Connector API. Here, you will find endpoints for all the resources which are provided by this API, including Users, Authentication, Posts & Profiles.\n- Make sure to Select the \"Prod Connector\" Environment, before using the API. \n- The API is live on Heroku, and using \"Prod Connector\" env, you can get the links to the live API.\n\n# Support\n- The Source Code for the API is present on <a href='https://github.com/Elemento24/Dev-Connectors'>Github</a>\n- For any further queries, feel free to reach me on <a href=\"mailto:mittalvishesh021@gmail.com\">G-Mail</a>",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users & Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09c3992b-477d-4dbf-93bc-e87f9c93dff5",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"David\",\n    \"email\": \"david@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "- Route for Sign-Up\n- Name, Email & Password are required for Registering a User\n- Public Route, Accessible to All"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4fac1278-6660-46c8-8f07-1dd2ef783016",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"david@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						},
+						"description": "- Route For Login\n- For allowing a Registered User to access Protected Resources.\n- Public Route, Accessible to All"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Auth User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						},
+						"description": "- Route for getting the Information of the Current User.\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				}
+			],
+			"description": "This section contains all the API endpoints, regarding Authentication & Users, which includes Register User, Login User and Get Auth User.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get All Posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						},
+						"description": "- Route for getting all the Posts\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts/<postID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"<postID>"
+							]
+						},
+						"description": "- Route for getting a Particular Post\n- Post ID needs to be passed in as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Json Content Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Hey Guys, I would like to say thank you to everyone, who helped to reach this point!\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/posts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						},
+						"description": "- Route for adding a New Post\n- Text needs to be passed in the Body\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Json Content Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Amazing Post Man, will saty tuned in for further updates.\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/posts/comment/<postID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"comment",
+								"<postID>"
+							]
+						},
+						"description": "- Route for adding a New Comment on a Post\n- Post ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Like Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts/like/<postID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"like",
+								"<postID>"
+							]
+						},
+						"description": "- Route for Liking a Post\n- Post ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Unlike Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"description": "JSON Web Token",
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{jwt}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts/unlike/<postID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"unlike",
+								"<postID>"
+							]
+						},
+						"description": "- Route for Unliking a Post\n- Post ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts/<postID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"<postID>"
+							]
+						},
+						"description": "- Route for Deleting a Post\n- Post ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"description": "JSON Web Token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/posts/comment/<postID>/<commentID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"comment",
+								"<postID>",
+								"<commentID>"
+							]
+						},
+						"description": "- Route for Deleting a Comment\n- Post ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				}
+			],
+			"description": "This section contains all the API endpoints, regarding Posts, which includes Get All Posts, Get Post by ID, Add Post, Add Comment, Like Post, Unlike Post, Delete Post and Delete Comment",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Get All Profiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "- Route for Getting all Profiles\n- Public Route, Accessible to All"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User's Profile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/profile/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"me"
+							]
+						},
+						"description": "- Route for Getting the Current User's Profile\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile by User ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/profile/user/<userID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"user",
+								"<userID>"
+							]
+						},
+						"description": "- Route for Getting a Profile by User ID\n- User ID needs to be passed as a Query Param\n- Public Route, Accessible to All"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Github Repos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/profile/github/<githubUsername>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"github",
+								"<githubUsername>"
+							]
+						},
+						"description": "- Route for Getting Github Repos\n- Github Username needs to be passed as a Query Param\n- Public Route, Accessible to All"
+					},
+					"response": []
+				},
+				{
+					"name": "Create & Update Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"Tech Soft Inc\",\n    \"status\": \"Developer\",\n    \"skills\": \"Java, Kotlin, C, C#\",\n    \"website\": \"https://www.techsoft.com\",\n    \"bio\": \"I am an Android Developer, & I love to explore new technologies\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "- Route for Creating/Updating a Profile\n- All the information needs to be passed in, irrespective of whether we are changing it or not\n- Status & Skills are mandatory, rest all info is optional\n- Private Route, Need to be Logged in"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Experience",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"description": "Json Content Type",
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{jwt}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Senior Developer\",\n    \"company\": \"Web Solutions\",\n    \"location\": \"Boston, MA\",\n    \"from\": \"1-5-2006\",\n    \"to\": \"1-7-2009\",\n    \"description\": \"Full Stack Web Developer\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/profile/experience",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience"
+							]
+						},
+						"description": "- Route for Adding a new Experience\n- Title, Company & From are required, rest all info is optional\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Education",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"description": "Json Content Type",
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{jwt}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": \"Stanford Institute\",\n    \"degree\" : \"Associates Degree\",\n    \"fieldofstudy\": \"Computer Science\",\n    \"from\": \"8-2-2003\",\n    \"to\": \"3-4-2005\",\n    \"description\": \"Got Associates in Computer Science\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/profile/education",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education"
+							]
+						},
+						"description": "- Route for Adding a new Education\n- School, Degree, Field of Study & From are required, rest all info is optional\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile, User and Posts",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "- Route for Deleting the Current User, his/her profile and the Posts\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Experience",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/profile/experience/<experienceID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience",
+								"<experienceID>"
+							]
+						},
+						"description": "- Route for Deleting a particular Experience\n- Experience ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Education",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{jwt}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/profile/education/<educationID>",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education",
+								"<educationID>"
+							]
+						},
+						"description": "- Route for Deleting a particular Education\n- Education ID needs to be passed as a Query Param\n- Private Route, Need to be Logged In"
+					},
+					"response": []
+				}
+			],
+			"description": "This section contains all the API endpoints, regarding Profiles, which includes Get All Profiles, Get Current User's Profile, Get Profile by User ID, Get Github Repos, Create & Update Profile, Add Experience, Add Education, Delete Profile & User, Delete Experience and Delete Education.",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
